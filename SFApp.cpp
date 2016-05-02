@@ -78,7 +78,7 @@ int SFApp::OnExecute() {
     OnEvent(sfevent);
   }
 }
-
+int direction = -1;
 void SFApp::OnUpdateWorld() {
   // Update projectile positions
   for(auto p: projectiles) {
@@ -90,9 +90,21 @@ void SFApp::OnUpdateWorld() {
   }
 
   // Update enemy positions
+
   for(auto a : aliens) {
-    // do something here
+	if (direction == -1) {
+		a->GoWest();
+}
+	if (direction == 1) {
+		a->GoEast();	
+	}
   }
+	for( auto a : aliens) {
+		if(a->GetPosX() == 0 || a->GetPosX() == 640) {
+			direction = direction * -1;
+			break;
+		}	
+	}
 
   // Detect collisions for projectiles
   for(auto p : projectiles) {
@@ -112,7 +124,6 @@ void SFApp::OnUpdateWorld() {
 	}
 		}
 }
-
 	//Detect collisions for the player
 	for(auto b : bricks) {
 		if(player->CollidesWith(b)) {

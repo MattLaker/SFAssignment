@@ -31,7 +31,6 @@ private:
   bool                    is_running;
 
   shared_ptr<SFWindow>       sf_window;
-
   shared_ptr<SFAsset>        player;
   shared_ptr<SFBoundingBox>  app_box;
   list<shared_ptr<SFAsset> > projectiles;

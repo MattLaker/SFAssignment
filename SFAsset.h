@@ -31,6 +31,7 @@ public:
 
   virtual void      SetPosition(Point2 &);
   virtual Point2    GetPosition();
+  virtual int		GetPosX();
   virtual SFAssetId GetId();
   virtual void      OnRender();
   virtual void      GoEast();
