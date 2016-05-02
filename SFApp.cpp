@@ -143,6 +143,7 @@ void SFApp::OnRender() {
 if(player->IsAlive()){
 	player->OnRender();
 } else {
+	player->OnRender();
 	std::cout << "You Died" << std::endl;
 	is_running = false;
 }
