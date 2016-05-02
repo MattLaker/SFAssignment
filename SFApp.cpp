@@ -94,26 +94,34 @@ void SFApp::OnUpdateWorld() {
     // do something here
   }
 
-  // Detect collisions for projectiles and aliens
+  // Detect collisions for projectiles
   for(auto p : projectiles) {
     for(auto a : aliens) {
       if(p->CollidesWith(a)) {
         p->HandleCollision(a);  
       }
     }
-  }
-
-	//Detect collisions for projectiles 
-	for (auto p: projectiles) {
-		for (auto c: coins) {
-			if(p->CollidesWith(c)) {
-				p->HandleCollision(c);
-			}
+	for (auto c : coins) {
+		if(p->CollidesWith(c)) {
+			p->HandleCollision(c);
 		}
+	}	
 	for (auto b : bricks) {
 		if(p->CollidesWith(b)){
 			p->HandleCollision(b);
 	}
+		}
+}
+
+	//Detect collisions for the player
+	for(auto b : bricks) {
+		if(player->CollidesWith(b)) {
+			player->HandleCollision(b);			
+		}
+	}
+	for(auto a : aliens) {
+		if(player->CollidesWith(a)) {
+			player->HandleCollision(a);
 		}
 	}
 
@@ -132,7 +140,12 @@ void SFApp::OnRender() {
   SDL_RenderClear(sf_window->getRenderer());
 
   // draw the player
-  player->OnRender();
+if(player->IsAlive()){
+	player->OnRender();
+} else {
+	std::cout << "You Died" << std::endl;
+	is_running = false;
+}
 
 	for(auto b: bricks) {
 		b->OnRender();

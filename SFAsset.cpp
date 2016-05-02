@@ -159,5 +159,9 @@ void SFAsset::HandleCollision(std::shared_ptr<SFAsset> a) {
 		if(a->type == SFASSET_ALIEN || a->type == SFASSET_COIN) {
 			a->SetNotAlive();
 		}
+		case SFASSET_PLAYER:
+			if (a->type == SFASSET_ALIEN || a->type == SFASSET_BRICKS) {
+				SetNotAlive();
+			}
 	}
 }
