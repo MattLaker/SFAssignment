@@ -41,6 +41,7 @@ public:
   virtual void      SetNotAlive();
   virtual bool      IsAlive();
   virtual void      HandleCollision(std::shared_ptr<SFAsset>);
+  virtual void		SetType(SFASSETTYPE);
 
   virtual bool                      CollidesWith(shared_ptr<SFAsset>);
   virtual shared_ptr<SFBoundingBox> GetBoundingBox();

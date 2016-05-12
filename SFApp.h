@@ -29,7 +29,7 @@ public:
   void    FireProjectile();
 private:
   bool                    is_running;
-
+  int					  coinLife = 1;
   shared_ptr<SFWindow>       sf_window;
   shared_ptr<SFAsset>        player;
   shared_ptr<SFBoundingBox>  app_box;

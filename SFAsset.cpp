@@ -85,6 +85,10 @@ SFAssetId SFAsset::GetId() {
   return id;
 }
 
+void SFAsset::SetType(SFASSETTYPE t) {
+	type = t; 
+}
+
 void SFAsset::OnRender() {
   // 1. Get the SDL_Rect from SFBoundingBox
   SDL_Rect rect;
@@ -169,18 +173,28 @@ bool SFAsset::IsAlive() {
   return (SFASSET_DEAD != type);
 }
 
+void endGame() {
+	
+}
+
 void SFAsset::HandleCollision(std::shared_ptr<SFAsset> a) {
+	if(a->type == SFASSET_DEAD) {
+		return;
+	}
 	switch(type) {
 		case SFASSET_DEAD: 
 			return;
 		case SFASSET_PROJECTILE: 
 			SetNotAlive();
-		if(a->type == SFASSET_ALIEN || a->type == SFASSET_COIN) {
+		if(a->type == SFASSET_ALIEN) {
 			a->SetNotAlive();
 		}
 		case SFASSET_PLAYER:
 			if (a->type == SFASSET_ALIEN || a->type == SFASSET_BRICKS) {
 				SetNotAlive();
+			}
+			if (a->type == SFASSET_COIN) {
+				endGame();
 			}
 	}
 }

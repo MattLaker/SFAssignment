@@ -13,7 +13,7 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
   for(int i=0; i<number_of_aliens; i++) {
     // place an alien at width/number_of_aliens * i
     auto alien = make_shared<SFAsset>(SFASSET_ALIEN, sf_window);
-    auto pos   = Point2(((canvas_w/number_of_aliens) * i) + 25, 200.0f);
+    auto pos   = Point2(((canvas_w/number_of_aliens) * i) + 25, 300.0f);
     alien->SetPosition(pos);
     aliens.push_back(alien);
   }
@@ -21,12 +21,13 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
 	auto coin = make_shared<SFAsset>(SFASSET_COIN, sf_window);
 	auto pos  = Point2((canvas_w/2), (canvas_h/2));
 	coin->SetPosition(pos);
+	coin->SetType(SFASSET_DEAD);
 	coins.push_back(coin);
 
-	const int numberOfWalls = 5;
+	const int numberOfWalls = 3;
 	for(int i =0; i < numberOfWalls; i++){
 		auto brick = make_shared<SFAsset>(SFASSET_BRICKS, sf_window);
-		pos = Point2((canvas_w/5)*i + 50, 65);
+		pos = Point2((canvas_w/5)*i + 190, 65);
 		brick->SetPosition(pos);
 		bricks.push_back(brick);
 	}
@@ -55,10 +56,10 @@ void SFApp::OnEvent(SFEvent& event) {
   case SFEVENT_PLAYER_RIGHT:
     player->GoEast();
     break;
-	case SFEVENT_PLAYER_UP:
+  case SFEVENT_PLAYER_UP:
     player->GoNorth();
     break;
-	case SFEVENT_PLAYER_DOWN:
+  case SFEVENT_PLAYER_DOWN:
     player->GoSouth();
     break;
   case SFEVENT_FIRE:
@@ -136,6 +137,12 @@ void SFApp::OnUpdateWorld() {
 		}
 	}
 
+	for(auto c : coins) {
+		if(player->CollidesWith(c)) {
+			player->HandleCollision(c);
+		}
+	}
+	
   // remove dead aliens (the long way)
   list<shared_ptr<SFAsset>> tmp;
   for(auto a : aliens) {
@@ -177,6 +184,11 @@ int count = 0;
 
 if(count == 0) {
 	for(auto c: coins) {
+		if (coinLife == 1) {
+			c->SetType(SFASSET_COIN);
+			coinLife--;
+		}
+	c->SetType(SFASSET_COIN);
 		if(c->IsAlive()) {
 			//c->GoWest();
 			c->OnRender();
