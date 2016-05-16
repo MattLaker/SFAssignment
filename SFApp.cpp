@@ -21,6 +21,7 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
 	auto coin = make_shared<SFAsset>(SFASSET_COIN, sf_window);
 	auto pos  = Point2((canvas_w/2), (canvas_h/2));
 	coin->SetPosition(pos);
+	coin->SetType(SFASSET_DEAD);
 	coins.push_back(coin);
 
 	const int numberOfWalls = 3;
@@ -96,7 +97,7 @@ void SFApp::OnUpdateWorld() {
 	}
   }
 	for( auto a : aliens) {
-		if(a->GetPosX() == 0 || a->GetPosX() == 640) {
+		if(a->GetPosX() == 15 || a->GetPosX() == 625) {
 			direction = direction * -1;
 			break;
 		}	
@@ -136,7 +137,6 @@ void SFApp::OnUpdateWorld() {
 	for(auto c : coins) {
 		if(player->CollidesWith(c)) {
 			player->HandleCollision(c);
-			score += 50;
 		}
 	}
 
@@ -182,6 +182,7 @@ int count = 0;
 
 if(count == 0) {
 	for(auto c: coins) {
+		c->SetType(SFASSET_COIN);
 		c->OnRender();		
 	}
 }
