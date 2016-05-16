@@ -25,10 +25,10 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
 	coin->SetType(SFASSET_DEAD);
 	coins.push_back(coin);
 
-	const int numberOfWalls = 3;
+	const int numberOfWalls = 4;
 	for(int i =0; i < numberOfWalls; i++){
 		auto brick = make_shared<SFAsset>(SFASSET_BRICKS, sf_window);
-		pos = Point2((canvas_w/5)*i + 190, 65);
+		pos = Point2((canvas_w/5)*i + 125, 85);
 		brick->SetPosition(pos);
 		bricks.push_back(brick);
 	}
@@ -151,7 +151,20 @@ void SFApp::OnUpdateWorld() {
   }
   aliens.clear();
   aliens = list<shared_ptr<SFAsset>>(tmp);
+
+
+list<shared_ptr<SFAsset>> tmpP;
+  for(auto p : projectiles) {
+    if(p->IsAlive()) {
+      tmpP.push_back(p);
+    }
+  }
+  projectiles.clear();
+  projectiles = list<shared_ptr<SFAsset>>(tmpP);
 }
+
+
+
 
 void SFApp::OnRender() {
   SDL_RenderClear(sf_window->getRenderer());

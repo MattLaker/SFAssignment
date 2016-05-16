@@ -1,4 +1,5 @@
 #include "SFAsset.h"
+#include "SFApp.h"
 
 int SFAsset::SFASSETID=0;
 
@@ -10,8 +11,10 @@ SFAsset::SFAsset(SFASSETTYPE type, std::shared_ptr<SFWindow> window): type(type)
     sprite = IMG_LoadTexture(sf_window->getRenderer(), "assets/player.png");
     break;
   case SFASSET_PROJECTILE:
-    sprite = IMG_LoadTexture(sf_window->getRenderer(), "assets/projectile.png");
+    sprite = IMG_LoadTexture(sf_window->getRenderer(), "assets/laserGreen.png");
     break;
+  case SFASSET_EXPLOSION:
+    sprite = IMG_LoadTexture(sf_window->getRenderer(), "assets/laserGreenShot.png");
   case SFASSET_ALIEN:
     sprite = IMG_LoadTexture(sf_window->getRenderer(), "assets/alien.png");
     break;
