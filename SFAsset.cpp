@@ -196,6 +196,7 @@ void SFAsset::HandleCollision(std::shared_ptr<SFAsset> a) {
 			a->SetNotAlive();
 			return;
 		} else if (a->type == SFASSET_COIN) {
+			std::cout << "Don't shoot the coin" << std::endl;
 			return;
 		}
 		case SFASSET_PLAYER:

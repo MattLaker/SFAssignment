@@ -17,6 +17,7 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
     alien->SetPosition(pos);
     aliens.push_back(alien);
   }
+	std::cout << "Shoot the evil aliens, then collect the coin to win!" << std::endl;
 
 	auto coin = make_shared<SFAsset>(SFASSET_COIN, sf_window);
 	auto pos  = Point2((canvas_w/2), (canvas_h/2));
@@ -160,7 +161,7 @@ if(player->IsAlive()){
 	player->OnRender();
 } else {
 	player->OnRender();
-	std::cout << "Game Over" << std::endl << "You're score is: " << score << std::endl;
+	std::cout << "Game Over" << std::endl << "You're score is: " << score << " out of a possible 100" << std::endl;
 	is_running = false;
 }
 
