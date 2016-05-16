@@ -21,7 +21,6 @@ SFApp::SFApp(std::shared_ptr<SFWindow> window) : fire(0), is_running(true), sf_w
 	auto coin = make_shared<SFAsset>(SFASSET_COIN, sf_window);
 	auto pos  = Point2((canvas_w/2), (canvas_h/2));
 	coin->SetPosition(pos);
-	coin->SetType(SFASSET_DEAD);
 	coins.push_back(coin);
 
 	const int numberOfWalls = 3;
@@ -86,10 +85,6 @@ void SFApp::OnUpdateWorld() {
     p->GoNorth();
   }
 
-  for(auto c: coins) {
-   	//	c->GoWest();
-  }
-
   // Update enemy positions
 
   for(auto a : aliens) {
@@ -112,6 +107,7 @@ void SFApp::OnUpdateWorld() {
     for(auto a : aliens) {
       if(p->CollidesWith(a)) {
         p->HandleCollision(a);  
+		score += 10;
       }
     }
 	for (auto c : coins) {
@@ -140,9 +136,11 @@ void SFApp::OnUpdateWorld() {
 	for(auto c : coins) {
 		if(player->CollidesWith(c)) {
 			player->HandleCollision(c);
+			score += 50;
 		}
 	}
-	
+
+
   // remove dead aliens (the long way)
   list<shared_ptr<SFAsset>> tmp;
   for(auto a : aliens) {
@@ -162,7 +160,7 @@ if(player->IsAlive()){
 	player->OnRender();
 } else {
 	player->OnRender();
-	std::cout << "You Died" << std::endl;
+	std::cout << "Game Over" << std::endl << "You're score is: " << score << std::endl;
 	is_running = false;
 }
 
@@ -184,19 +182,7 @@ int count = 0;
 
 if(count == 0) {
 	for(auto c: coins) {
-		if (coinLife == 1) {
-			c->SetType(SFASSET_COIN);
-			coinLife--;
-		}
-	c->SetType(SFASSET_COIN);
-		if(c->IsAlive()) {
-			//c->GoWest();
-			c->OnRender();
-		}
-		else {
-			std::cout << "Game Over" << std::endl;
-			is_running = false;
-		}
+		c->OnRender();		
 	}
 }
 

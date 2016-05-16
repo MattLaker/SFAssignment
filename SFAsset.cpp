@@ -174,7 +174,6 @@ bool SFAsset::IsAlive() {
 }
 
 void endGame() {
-	
 }
 
 void SFAsset::HandleCollision(std::shared_ptr<SFAsset> a) {
@@ -188,13 +187,18 @@ void SFAsset::HandleCollision(std::shared_ptr<SFAsset> a) {
 			SetNotAlive();
 		if(a->type == SFASSET_ALIEN) {
 			a->SetNotAlive();
+			return;
+		} else if (a->type == SFASSET_COIN) {
+			return;
 		}
 		case SFASSET_PLAYER:
 			if (a->type == SFASSET_ALIEN || a->type == SFASSET_BRICKS) {
 				SetNotAlive();
+				return;
 			}
 			if (a->type == SFASSET_COIN) {
 				endGame();
+				SetNotAlive();
 			}
 	}
 }
