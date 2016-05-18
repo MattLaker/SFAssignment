@@ -31,7 +31,8 @@ from the top-level directory.  The game will expect to find the
 
 ## Credits ##
 The sprites in this game come directly from 
-[SpriteLib](http://www.widgetworx.com/widgetworx/portfolio/spritelib.html) and are used
+[SpriteLib](http://www.widgetworx.com/widgetworx/portfolio/spritelib.html), [OpenGameArt] (http://opengameart.org/content/space-shooter-art) and 
+(http://opengameart.org/content/bricks-0) and are used
 under the terms of the [CPL 1.0](http://opensource.org/licenses/cpl1.0.php).
 # SFAssigment
 # SFAssigment
