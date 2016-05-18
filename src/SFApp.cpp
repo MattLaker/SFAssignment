@@ -174,7 +174,7 @@ if(player->IsAlive()){
 	player->OnRender();
 } else {
 	player->OnRender();
-	std::cout << "Game Over" << std::endl << "You're score is: " << score << " out of a possible 100" << std::endl;
+	std::cout << "Game Over" << std::endl << "You're score is: " << score << std::endl;
 	is_running = false;
 }
 
